@@ -1,0 +1,29 @@
+---
+title: Moving particle-filter ray casting to the GPU made it 4.47× faster
+summary: Localization casts 244,000 rays per update. Porting range_libc's CUDA build to the Jetson Orin Nano cut each update from 5.37 ms to 1.20 ms.
+date: "2026-04"
+displayDate: Spring 2026
+project: f1tenth
+---
+
+## Why ray casting is the bottleneck
+
+The particle filter scores each guess of the car's pose by casting rays into the map and comparing them with the real LiDAR scan. With 4,000 particles and 61 rays each, that's 244,000 rays every update. Every ray is independent, so the work is embarrassingly parallel and a natural fit for the GPU.
+
+## What the port took
+
+range_libc ships a CUDA path, but not one that runs on a Jetson Orin Nano under Python 3.
+
+- Ported the Python 2 wrapper to Python 3.
+- Retargeted the CUDA build from `sm_20` to `sm_87`, the Orin's architecture.
+- Replaced `tf.transformations` with inline quaternion math.
+- Added a shim for the missing `distutils.msvccompiler` module.
+
+## Result
+
+| Backend | Time per update | Rate |
+|---|---|---|
+| CPU (`PyRayMarching`) | 5.37 ms | 186 Hz |
+| GPU (`PyRayMarchingGPU`) | 1.20 ms | 833 Hz |
+
+Both runs use 4,000 particles and 61 rays per particle. The benchmark is `scripts/bench_rangelibc.py` in the [F1TENTH repo](https://github.com/ryanxxhuang/f1tenth).

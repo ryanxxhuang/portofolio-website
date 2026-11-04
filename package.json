@@ -1,39 +1,30 @@
 {
-  "name": "ryan-huang-portfolio",
-  "type": "module",
+  "name": "ryanxhuang-site",
   "version": "2.0.0",
-  "description": "Ryan Huang's portfolio — Astro + Tailwind + React islands",
+  "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "typecheck": "astro check",
-    "build": "astro build",
-    "build:check": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "preview": "npx --yes serve@14.2.4 out"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.0",
-    "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/tailwind": "^6.0.2",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "astro": "^5.14.7",
-    "framer-motion": "^12.23.24",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-icons": "^5.5.0",
-    "tailwindcss": "^3.4.18"
-  },
-  "engines": {
-    "node": ">=20.0.0"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-darwin-arm64": "^4.60.1",
-    "@rollup/rollup-linux-x64-gnu": "^4.52.5"
+    "@fontsource-variable/geist": "5.3.0",
+    "gray-matter": "4.0.3",
+    "next": "15.5.29",
+    "next-mdx-remote": "6.0.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "rehype-slug": "6.0.0",
+    "remark-gfm": "4.0.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "typescript": "^5.9.3"
+    "@tailwindcss/postcss": "4.3.4",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "postcss": "8.5.32",
+    "tailwindcss": "4.3.4",
+    "typescript": "5.9.3"
   }
 }

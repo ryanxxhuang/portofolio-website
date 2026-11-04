@@ -1,0 +1,86 @@
+---
+title: F1TENTH autonomous car
+summary: I solo-built a 1/10-scale autonomous race car, from the parts list to GPU-accelerated localization and model predictive control.
+role: Solo build
+period: Jan – May 2026
+year: "2026"
+order: 1
+stack: [ROS 2 Humble, Jetson Orin Nano, RPLIDAR A2M12, VESC, Python, C++, CUDA]
+links:
+  - label: Code on GitHub
+    href: https://github.com/ryanxxhuang/f1tenth
+stats:
+  - value: "4.47×"
+    label: "faster localization after moving ray casting to the GPU"
+  - value: "6"
+    label: "autonomy algorithms built and tested on the real car"
+  - value: "~5K"
+    label: "lines of Python and C++, written alone"
+---
+
+## Why I built it
+
+I want to manage robotics products, and I didn't want my first robotics specs to describe systems I had never debugged. So I built one alone: chose the parts, assembled the car, and integrated every layer from the motor controller to the planner. The idea came out of a conversation with a professor at the UCLA Mobility Lab. The build and the code are mine.
+
+<Figure n="1" caption="The finished car: the RPLIDAR at the front, the Jetson Orin Nano and its Wi-Fi antennas behind it.">
+  <img src="/f1tenth-hero.jpg" srcSet="/f1tenth-hero-sm.jpg 600w, /f1tenth-hero.jpg 1200w" sizes="(max-width: 520px) 100vw, 420px" alt="The F1TENTH car on a desk, with a LiDAR sensor on the front and a Jetson computer with two antennas behind it" width="1200" height="1600" loading="lazy" className="block h-auto w-full max-w-[380px] rounded-lg" />
+</Figure>
+
+| Part | What I used |
+|---|---|
+| Compute | NVIDIA Jetson Orin Nano (Super) |
+| LiDAR | RPLIDAR A2M12, 15 Hz |
+| Motor controller | VESC 6 (MK6) |
+| Teleop | PS5 DualSense |
+
+## The race stack
+
+The car reads a LiDAR (RPLIDAR A2M12), wheel odometry from the VESC and an IMU, then runs four stages:
+
+1. **SLAM.** slam_toolbox builds the map with a pose graph and loop closure.
+2. **Localization.** A particle filter with 4,000 particles, ray casting on the GPU.
+3. **Planning.** A minimum-curvature raceline offline, Pure Pursuit online.
+4. **Control.** Pure Pursuit or linear MPC (12 steps of 0.1 s) sends speed and steering to the VESC.
+
+The offline half turns a few laps of manual driving into a race plan. slam_toolbox builds the map, a medial-axis script extracts the track centerline, and a fork of TUM's minimum-curvature optimizer produces the raceline and its speed profile. The online half localizes against that map and follows the line.
+
+<Figure n="2" caption="Top view of the test track from the car's own SLAM map. The raceline has 75 points, a speed profile of 1.32 to 1.64 m/s and a 2.58 s lap.">
+  <TrackMap />
+  <TrackLegend />
+</Figure>
+
+## Measured results
+
+| What | Setup | Result |
+|---|---|---|
+| Ray casting on the CPU | 4,000 particles × 61 rays | 5.37 ms per update (186 Hz) |
+| Ray casting on the GPU (CUDA, sm_87) | Same | 1.20 ms per update (833 Hz), 4.47× faster |
+| Optimized raceline | 75 points, 0.05 m step | 2.58 s lap at 1.32 to 1.64 m/s |
+| Codebase | Python and C++ | About 5,000 lines |
+
+## Decisions worth explaining
+
+### Two independent paths for the emergency brake
+
+Automatic emergency braking computes a time-to-collision for every LiDAR beam and brakes below 0.5 s. It publishes to the Ackermann mux at priority 200, above every driving algorithm, and also straight to the VESC. If the mux crashes or lags, the car would otherwise hold its last speed. [The build log has the full reasoning](/log/redundant-aeb/).
+
+### RRT* over plain RRT
+
+Plain RRT finds a path quickly but rarely a good one. RRT*'s rewiring step converges toward the optimal path at a bounded cost per iteration. That trade is worth it on a car where compute isn't the bottleneck and path quality shows up in lap time.
+
+### Fix upstream code instead of working around it
+
+The stack needed three patches: an extra negation in the VESC driver that mirrored the odometry, a Python 3 and sm_87 port of range_libc's CUDA build, and a cvxopt shim for TUM's optimizer because the quadprog wheel is broken on aarch64.
+
+## Before the race stack
+
+I first worked through six classic autonomy labs on the same car: automatic emergency braking, PID wall following, Follow the Gap, Pure Pursuit, RRT* on a 0.1 m occupancy grid, and MPC solved with CVXPY and OSQP.
+
+<Videos>
+  <Video id="QS4dnrDDZss" title="Follow the Gap" note="Reactive planning, up to 1.5 m/s" />
+  <Video id="SXXCBjzrh3A" title="PID wall following" />
+</Videos>
+
+## Status
+
+The offline pipeline is complete, and the online stack (particle filter plus MPC) passed its first single-lap test on 12 April 2026. Next is a larger track and a head-to-head benchmark of Pure Pursuit against MPC, which is waiting on track time.

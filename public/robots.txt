@@ -1,8 +1,0 @@
-# robots.txt for ryanxhuang.com
-# Allow all crawlers
-
-User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://ryanxhuang.com/sitemap-index.xml

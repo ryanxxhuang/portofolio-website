@@ -1,75 +1,41 @@
-# Ryan Huang — Portfolio
+# ryanxhuang.com
 
-A single-page portfolio built with Astro + Tailwind CSS + React islands. Live at
-[ryanxhuang.com](https://ryanxhuang.com).
+Ryan Huang's portfolio: robotics product and program management, with case studies and a build log.
 
-## Tech stack
+## Stack
 
-- [Astro](https://astro.build/) — static site generator, ships zero JS by default
-- [Tailwind CSS](https://tailwindcss.com/) — utility-first styling
-- [React](https://react.dev/) — interactive islands only (Framer Motion for scroll animations)
-- [TypeScript](https://www.typescriptlang.org/) — strict mode
-- [GitHub Pages](https://pages.github.com/) — hosting (CNAME → ryanxhuang.com)
+- [Next.js 15](https://nextjs.org/) (App Router), exported as a static site (`output: 'export'`)
+- [Tailwind CSS 4](https://tailwindcss.com/) plus a small set of hand-written classes in `app/globals.css`
+- MDX content compiled with `next-mdx-remote/rsc` and `remark-gfm`
+- One self-hosted typeface: Geist, from Fontsource
+- Hosted on GitHub Pages; `public/CNAME` points it at ryanxhuang.com
 
 ## Local development
 
 ```bash
-npm install         # one-time
-npm run dev         # http://localhost:4321
-npm run typecheck   # astro check (TS + astro)
-npm run build       # build -> dist/
-npm run preview     # serve the built site
+npm install
+npm run dev        # http://localhost:3000
+npm run typecheck
+npm run build      # static site in ./out
+npm run preview    # serve ./out
 ```
 
-Node version is pinned in `.nvmrc` (20).
+Node is pinned in `.nvmrc` (22).
 
-## Project layout
+## Editing content
 
-```
-/
-├── public/                     # Static assets served as-is
-│   ├── f1tenth-hero.jpg        # RoboRacer hero (desktop, 1600px)
-│   ├── f1tenth-hero-sm.jpg     # RoboRacer hero (mobile, 800px)
-│   ├── resume.pdf
-│   ├── og-image.svg
-│   ├── favicon.svg
-│   ├── robots.txt
-│   └── CNAME
-├── src/
-│   ├── components/             # One-off Astro + React components
-│   ├── layouts/BaseLayout.astro
-│   ├── pages/index.astro       # Single-page site
-│   └── styles/global.css
-├── astro.config.mjs
-├── tailwind.config.mjs
-└── .github/workflows/deploy.yml
-```
+| What | Where |
+|---|---|
+| Case studies | `content/work/*.mdx` (frontmatter: title, summary, role, org, period, year, order, stack, links, stats) |
+| Build log entries | `content/log/*.mdx` (frontmatter: title, summary, date `YYYY-MM`, displayDate, project) |
+| Contact details, experience, education, highlights | `lib/site.ts` |
+| Resume PDF | `public/resume/Ryan_Huang_Resume.pdf` (also copied to `/resume.pdf` for old links) |
 
-The site is a single page — every section (`HeroSection`, `AboutSection`,
-`RoboRacerShowcase`, `ProjectsSection`, `SkillsCarousel`, `ResumeSection`,
-`ContactForm`) lives under `src/components/` and is composed in
-`src/pages/index.astro`.
+The design is deliberately minimal: one column, one typeface, no decoration. The small details: an availability dot, key results that slide open when you hover an experience row (always shown on touch screens), key numbers at the top of each case study, copy-to-clipboard email, organization monograms with tenure, highlights that link to their case studies, a "Watch it drive" chip on the photo, Los Angeles local time with a sun or moon in the footer, section counts, external-link arrows, a reading-progress line and "#" heading links on long pages, reading time, a back-to-top link, and a print stylesheet that turns the home page into a clean one-column resume.
 
-## Hydration strategy
+MDX files can use `<Figure caption="...">`, `<TrackMap />` (the real F1TENTH map and raceline from `data/track.json`), `<TrackLegend />`, and `<Videos><Video id="YOUTUBE_ID" title="..." /></Videos>`. Pass props as strings; JavaScript expressions are blocked.
 
-- `HeroSection` uses `client:load` (above-fold entry animations run on load).
-- `SkillsCarousel` is SSR'd with no directive — ships zero JS.
-- All other React sections use `client:visible` — they hydrate only when
-  scrolled into view, keeping initial JS small.
+## Deploying
 
-## Updating content
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds `./out` and publishes it to GitHub Pages.
 
-- Personal info + copy: `src/components/*.tsx` / `*.astro`
-- Projects list: `src/pages/index.astro` (`projects` array)
-- Resume PDF: `public/resume.pdf`
-- Color palette: `tailwind.config.mjs`
-
-## Deployment
-
-Pushes to `main` are deployed to GitHub Pages via
-`.github/workflows/deploy.yml`. The workflow runs `astro check` → `astro build`,
-then publishes `dist/`.
-
-## License
-
-MIT.
