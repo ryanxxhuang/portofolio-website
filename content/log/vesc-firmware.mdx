@@ -1,0 +1,19 @@
+---
+title: The steering servo died, so I rebuilt the motor controller firmware
+summary: VESC firmware 6.06 shipped a broken servo output for my controller, and no prebuilt binary covered it. So I built one from source.
+date: "2026-03"
+displayDate: Spring 2026
+project: f1tenth
+---
+
+Midway through the Pure Pursuit lab, the steering servo on the real car stopped responding. The cause was one level down the stack: VESC firmware 6.06 for the 60_MK6 controller shipped with a broken servo output path, and the prebuilt binaries only covered the MKIII, MKV, PLUS and Flipsky boards.
+
+## What I did
+
+1. Kept the software moving in the AutoDRIVE simulator so the lab wasn't blocked.
+2. Cross-compiled VESC from the `release_6_06` branch for the MK6 inside a Docker container.
+3. Flashed the build. The servo came back.
+
+## What I took from it
+
+Robotics is half writing controllers and half knowing when to drop a level of the stack.

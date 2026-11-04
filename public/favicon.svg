@@ -1,10 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Dark rounded badge -->
-  <rect width="64" height="64" rx="10" fill="#05060a"/>
-  <!-- Bold NV green monogram R -->
-  <path
-    fill="#76B900"
-    fill-rule="evenodd"
-    d="M18 14 H36 C44 14 50 19 50 26 C50 31.5 46.5 35.5 41 36.8 L51 50 H41.5 L32 37 H26 V50 H18 Z M26 21 V30 H35 C38.5 30 41 28.4 41 25.5 C41 22.6 38.5 21 35 21 Z"
-  />
+  <rect width="64" height="64" fill="#F3F5F6"/>
+  <path d="M8 8h48v48H8z" fill="none" stroke="#1D2329" stroke-width="3"/>
+  <circle cx="32" cy="32" r="13" fill="none" stroke="#1F4FD1" stroke-width="5"/>
+  <circle cx="32" cy="32" r="3.5" fill="#1D2329"/>
 </svg>

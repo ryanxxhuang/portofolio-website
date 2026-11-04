@@ -1,0 +1,21 @@
+---
+title: Why my emergency brake has two independent paths
+summary: Automatic emergency braking overrides every driving algorithm through the command mux, and it also talks to the motor controller directly in case the mux fails.
+date: "2026-02"
+displayDate: Spring 2026
+project: f1tenth
+---
+
+## How the brake decides
+
+For every LiDAR beam, the brake computes an instantaneous time-to-collision from the measured range and how fast it's shrinking. The whole scan is checked at once with vectorized NumPy. Below 0.5 s, it brakes.
+
+## Two paths to the motor
+
+The brake command goes to the Ackermann mux at priority 200, above the autonomous driving algorithms at priority 10. It's also published straight to the VESC motor controller.
+
+The mux is clean on paper, but it's one more process that can crash or lag. If it does, the car keeps the last speed it was given. The direct path means the brake still reaches the motor controller.
+
+## The rule
+
+Safety-critical code shouldn't have a single point of failure, even on a 1/10-scale car.
