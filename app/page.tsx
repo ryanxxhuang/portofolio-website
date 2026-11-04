@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import HeroFigure from '@/components/HeroFigure';
+import TrackMap from '@/components/TrackMap';
 import { External, Play } from '@/components/Icons';
 import Links, { ResumeButton } from '@/components/Links';
 import Rows from '@/components/Rows';
@@ -18,7 +20,7 @@ export default function Home() {
     jobTitle: 'Robotics product and program manager',
     description: site.description,
     url: site.url,
-    image: `${site.url}/f1tenth-hero.jpg`,
+    image: `${site.url}/og.png`,
     sameAs: [site.linkedin, site.github],
     address: { '@type': 'PostalAddress', addressLocality: 'Los Angeles', addressRegion: 'CA', addressCountry: 'US' },
     alumniOf: [
@@ -66,30 +68,26 @@ export default function Home() {
       </section>
 
       <figure className="rise relative m-0 mt-10" style={i(3)}>
-        <Link href="/work/f1tenth/" className="group block overflow-hidden rounded-lg">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/f1tenth-hero.jpg"
-            srcSet="/f1tenth-hero-sm.jpg 600w, /f1tenth-hero.jpg 1200w"
-            sizes="(max-width: 640px) 100vw, 620px"
-            alt="The F1TENTH car Ryan built, with a LiDAR sensor on the front and a Jetson computer behind it"
-            width={1200}
-            height={1600}
-            className="block h-[300px] w-full object-cover object-[center_62%] transition duration-500 group-hover:scale-[1.015] max-sm:h-[240px]"
-          />
-        </Link>
-        <a
-          className="chip absolute bottom-[38px] left-3"
+        <div className="relative">
+          <HeroFigure fallback={<TrackMap className="h-full w-full" />} />
+          <a
+            className="chip absolute bottom-3 left-3"
           href="https://www.youtube.com/watch?v=QS4dnrDDZss"
           target="_blank"
           rel="noopener"
         >
-          <Play /> Watch it drive
-          <External />
-        </a>
+            <Play /> Watch it drive
+            <External />
+          </a>
+        </div>
         <figcaption className="mt-2 flex flex-wrap justify-between gap-x-4 gap-y-0.5 text-[13px]">
-          <span className="muted">The F1TENTH car I built on my own, LiDAR up front.</span>
-          <span className="faint">Jetson Orin Nano, RPLIDAR A2M12, VESC 6, ROS 2</span>
+          <span className="muted">
+            My F1TENTH car on its real LiDAR map, driving the optimized raceline.{' '}
+            <span className="hidden [@media(pointer:fine)]:inline">Drag to rotate.</span>
+          </span>
+          <Link href="/work/f1tenth/" className="faint ul">
+            How I built it
+          </Link>
         </figcaption>
       </figure>
 
