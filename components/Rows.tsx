@@ -27,6 +27,11 @@ export default function Rows({ items }: { items: Entry[] }) {
               <span>
                 <span className="block font-medium">{x.role}</span>
                 <span className="muted block text-[15px]">{x.org}</span>
+                {x.impact ? (
+                  <span className="impact">
+                    <span>{x.impact}</span>
+                  </span>
+                ) : null}
               </span>
             </span>
             <span className="num text-right text-[14px] whitespace-nowrap">

@@ -240,14 +240,6 @@
   .prose td { padding: 9px 16px 9px 0; border-top: 1px solid var(--line); vertical-align: top; }
   .prose td:last-child, .prose th:last-child { padding-right: 0; }
 
-  /* Name: hover reveals the Chinese name */
-  .name { display: inline-grid; cursor: default; }
-  .name > span { grid-area: 1 / 1; transition: opacity 220ms ease, transform 220ms ease; }
-  .name .zh { opacity: 0; transform: translateY(4px); font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", var(--font-sans); letter-spacing: 0.06em; }
-  .name:hover .en { opacity: 0; transform: translateY(-4px); }
-  .name:hover .zh { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .name > span { transition: none; } }
-
   .count { margin-left: 4px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
   /* External-link arrow nudges on hover */
@@ -283,4 +275,29 @@
     .row { padding: 6px 0; margin: 0; }
     .label { margin-top: 18px; }
   }
+
+  /* Experience: the key result slides open on hover or keyboard focus, and is always open on touch screens. */
+  .impact {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 220ms ease, opacity 220ms ease;
+  }
+  .impact > span {
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .impact > span::before { content: ""; display: block; height: 6px; }
+  .row:hover .impact, .row:focus-visible .impact { grid-template-rows: 1fr; opacity: 1; }
+  @media (hover: none) { .impact { grid-template-rows: 1fr; opacity: 1; } .impact > span { color: var(--ink-2); } }
+  @media print { .impact { grid-template-rows: 1fr; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .impact { transition: none; } }
+
+  /* Key numbers at the top of a case study */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; margin-top: 28px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .stat { background: var(--bg); padding: 14px 16px 13px; }
+  .stat b { display: block; font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat span { display: block; margin-top: 3px; font-size: 13px; line-height: 1.4; color: var(--ink-2); }
 }

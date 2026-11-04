@@ -15,6 +15,7 @@ export interface WorkMeta {
   order: number;
   stack?: string[];
   links?: { label: string; href: string }[];
+  stats?: { value: string; label: string }[];
 }
 
 export interface LogMeta {

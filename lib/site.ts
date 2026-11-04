@@ -22,27 +22,28 @@ export type Entry = {
   end?: string; // YYYY-MM, omitted while current
   dates: string;
   href?: string;
+  impact?: string; // one line shown on hover (always shown on touch screens)
 };
 
 /** Resume-style data for the home page, ordered newest first. */
 export const experience: Entry[] = [
-  { role: 'Capstone team lead', org: 'Avride, UCLA Anderson MBA capstone', mark: 'Av', start: '2026-11', dates: 'Nov 2026', href: '/work/avride/' },
-  { role: 'Graduate student researcher', org: 'UCLA Robot Intelligence Lab', mark: 'UR', start: '2026-10', dates: 'Oct 2026', href: '/work/uril/' },
-  { role: 'Founder and product lead', org: 'CMIS.ai', mark: 'CM', start: '2026-06', dates: 'Jun 2026', href: '/work/cmis/' },
-  { role: 'MBA intern, product and GTM', org: 'AGIBOT', mark: 'AG', start: '2026-05', end: '2026-07', dates: 'May – Jul 2026', href: '/work/agibot/' },
-  { role: 'Product manager', org: 'James Tech Consulting Group, Zendesk partner', mark: 'JT', start: '2025-03', end: '2025-07', dates: 'Mar – Jul 2025', href: '/work/zendesk/' },
-  { role: 'Technical program manager', org: 'China Engineering Consultants', mark: 'CE', start: '2024-06', end: '2025-02', dates: 'Jun 2024 – Feb 2025', href: '/work/infrastructure/' },
-  { role: 'Senior project manager', org: 'Taoyuan City Government', mark: 'TY', start: '2020-08', end: '2024-05', dates: 'Aug 2020 – May 2024', href: '/work/infrastructure/' },
+  { role: 'Capstone team lead', org: 'Avride, UCLA Anderson MBA capstone', mark: 'Av', start: '2026-11', dates: 'Nov 2026', href: '/work/avride/', impact: 'Signed Avride as our partner; pricing and market-selection work for 1,000+ robots on 25+ campuses.' },
+  { role: 'Graduate student researcher', org: 'UCLA Robot Intelligence Lab', mark: 'UR', start: '2026-10', dates: 'Oct 2026', href: '/work/uril/', impact: 'Proposed research on demonstration safety margins and physics-solver disagreement.' },
+  { role: 'Founder and product lead', org: 'CMIS.ai', mark: 'CM', start: '2026-06', dates: 'Jun 2026', href: '/work/cmis/', impact: 'Built a vision pipeline that turns site photos into structured records; 2 pilot users lined up.' },
+  { role: 'MBA intern, product and GTM', org: 'AGIBOT', mark: 'AG', start: '2026-05', end: '2026-07', dates: 'May – Jul 2026', href: '/work/agibot/', impact: 'Unitree benchmark, PRDs and a hardware-software roadmap, and the US go-to-market plan.' },
+  { role: 'Product manager', org: 'James Tech Consulting Group, Zendesk partner', mark: 'JT', start: '2025-03', end: '2025-07', dates: 'Mar – Jul 2025', href: '/work/zendesk/', impact: 'Division revenue doubled in 5 months; BenQ integration reached 92% accuracy and saved $200K a month.' },
+  { role: 'Technical program manager', org: 'China Engineering Consultants', mark: 'CE', start: '2024-06', end: '2025-02', dates: 'Jun 2024 – Feb 2025', href: '/work/infrastructure/', impact: 'Governance for a $3.3B railway program; one root-cause fix saved $1.5M and 12 months.' },
+  { role: 'Senior project manager', org: 'Taoyuan City Government', mark: 'TY', start: '2020-08', end: '2024-05', dates: 'Aug 2020 – May 2024', href: '/work/infrastructure/', impact: 'Managed a $63M portfolio with 10% ($6.3M) savings; cut execution costs 15% across 3 programs.' },
 ];
 
 export const projects: Entry[] = [
-  { role: 'F1TENTH autonomous car', org: 'Solo build, from the parts list to MPC', mark: 'F1', start: '2026-01', end: '2026-05', dates: 'Jan – May 2026', href: '/work/f1tenth/' },
+  { role: 'F1TENTH autonomous car', org: 'Solo build, from the parts list to MPC', mark: 'F1', start: '2026-01', end: '2026-05', dates: 'Jan – May 2026', href: '/work/f1tenth/', impact: '6 autonomy algorithms, about 5,000 lines of Python and C++, localization 4.47× faster on the GPU.' },
 ];
 
 export const education: Entry[] = [
-  { role: 'MBA', org: 'UCLA Anderson School of Management', mark: 'UA', dates: '2027' },
-  { role: 'MS in Computer Science, robotics', org: 'Georgia Institute of Technology', mark: 'GT', dates: 'From 2027' },
-  { role: 'MS in Civil Engineering', org: 'National Chiao Tung University', mark: 'CT', dates: '2020' },
+  { role: 'MBA', org: 'UCLA Anderson School of Management', mark: 'UA', dates: '2027', impact: 'Technology Management specialization. GRE 337.' },
+  { role: 'MS in Computer Science, robotics', org: 'Georgia Institute of Technology', mark: 'GT', dates: 'From 2027', impact: 'Computational Perception and Robotics specialization.' },
+  { role: 'MS in Civil Engineering', org: 'National Chiao Tung University', mark: 'CT', dates: '2020', impact: 'Co-authored a paper at the 17th World Conference on Earthquake Engineering.' },
   { role: 'BS in Civil Engineering', org: 'National Central University', mark: 'CU', dates: '2017' },
 ];
 

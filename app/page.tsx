@@ -1,20 +1,39 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import { External, Play } from '@/components/Icons';
-import Name from '@/components/Name';
 import Links, { ResumeButton } from '@/components/Links';
 import Rows from '@/components/Rows';
 import { getLog } from '@/lib/content';
-import { education, experience, highlights, projects } from '@/lib/site';
+import { education, experience, highlights, projects, site } from '@/lib/site';
 
 export default function Home() {
   const log = getLog();
   const i = (n: number) => ({ ['--i' as string]: n });
 
+  const person = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.name,
+    alternateName: 'Ching Yu Huang',
+    jobTitle: 'Robotics product and program manager',
+    description: site.description,
+    url: site.url,
+    image: `${site.url}/f1tenth-hero.jpg`,
+    sameAs: [site.linkedin, site.github],
+    address: { '@type': 'PostalAddress', addressLocality: 'Los Angeles', addressRegion: 'CA', addressCountry: 'US' },
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'UCLA Anderson School of Management' },
+      { '@type': 'CollegeOrUniversity', name: 'National Chiao Tung University' },
+      { '@type': 'CollegeOrUniversity', name: 'National Central University' },
+    ],
+    knowsAbout: ['Robotics', 'Product management', 'Technical program management', 'ROS 2', 'Autonomous vehicles', 'SLAM', 'Model predictive control'],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
       <header className="rise" style={i(0)}>
-        <Name />
+        <h1 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">Ryan Huang</h1>
         <p className="muted m-0">Robotics product and program manager</p>
       </header>
 

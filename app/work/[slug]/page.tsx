@@ -36,7 +36,6 @@ export default async function CaseStudy({ params }: Props) {
     ['Role', w.org ? `${w.role}, ${w.org}` : w.role],
     ['Period', w.period],
   ];
-  meta.push(['Reading', `${mins} min`]);
   if (w.stack?.length) meta.push(['Stack', w.stack.join(', ')]);
   if (w.links?.length)
     meta.push([
@@ -50,6 +49,8 @@ export default async function CaseStudy({ params }: Props) {
       </span>,
     ]);
 
+  meta.push(['Reading', `${mins} min`]);
+
   return (
     <article>
       <Progress />
@@ -58,6 +59,17 @@ export default async function CaseStudy({ params }: Props) {
       </Link>
       <h1 className="mt-10 mb-0 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{w.title}</h1>
       <p className="muted mt-3 mb-0">{w.summary}</p>
+
+      {w.stats?.length ? (
+        <div className="stats" role="list" aria-label="Key numbers">
+          {w.stats.map((x) => (
+            <div key={x.value + x.label} className="stat" role="listitem">
+              <b>{x.value}</b>
+              <span>{x.label}</span>
+            </div>
+          ))}
+        </div>
+      ) : null}
 
       <dl className="mt-8 mb-0 grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-1.5 text-[14.5px]">
         {meta.map(([k, v]) => (

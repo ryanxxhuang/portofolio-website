@@ -26,12 +26,12 @@ Node is pinned in `.nvmrc` (22).
 
 | What | Where |
 |---|---|
-| Case studies | `content/work/*.mdx` (frontmatter: title, summary, role, org, period, year, order, stack, links) |
+| Case studies | `content/work/*.mdx` (frontmatter: title, summary, role, org, period, year, order, stack, links, stats) |
 | Build log entries | `content/log/*.mdx` (frontmatter: title, summary, date `YYYY-MM`, displayDate, project) |
 | Contact details, experience, education, highlights | `lib/site.ts` |
 | Resume PDF | `public/resume/Ryan_Huang_Resume.pdf` (also copied to `/resume.pdf` for old links) |
 
-The design is deliberately minimal: one column, one typeface, no decoration. The small details: the Chinese name on hover, an availability dot, copy-to-clipboard email, organization monograms with tenure, highlights that link to their case studies, a "Watch it drive" chip on the photo, Los Angeles local time with a sun or moon in the footer, section counts, external-link arrows, a reading-progress line and "#" heading links on long pages, reading time, a back-to-top link, and a print stylesheet that turns the home page into a clean one-column resume.
+The design is deliberately minimal: one column, one typeface, no decoration. The small details: an availability dot, key results that slide open when you hover an experience row (always shown on touch screens), key numbers at the top of each case study, copy-to-clipboard email, organization monograms with tenure, highlights that link to their case studies, a "Watch it drive" chip on the photo, Los Angeles local time with a sun or moon in the footer, section counts, external-link arrows, a reading-progress line and "#" heading links on long pages, reading time, a back-to-top link, and a print stylesheet that turns the home page into a clean one-column resume.
 
 MDX files can use `<Figure caption="...">`, `<TrackMap />` (the real F1TENTH map and raceline from `data/track.json`), `<TrackLegend />`, and `<Videos><Video id="YOUTUBE_ID" title="..." /></Videos>`. Pass props as strings; JavaScript expressions are blocked.
 
