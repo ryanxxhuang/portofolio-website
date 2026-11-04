@@ -1,5 +1,5 @@
 import CopyEmail from './CopyEmail';
-import { Download, GitHub, LinkedIn } from './Icons';
+import { Download, External, GitHub, LinkedIn } from './Icons';
 import { site } from '@/lib/site';
 
 export function ResumeButton() {
@@ -25,10 +25,12 @@ export default function Links({ resume = true }: { resume?: boolean }) {
       <a className="link-i" href={site.linkedin} target="_blank" rel="me noopener">
         <LinkedIn />
         <span className="ul">LinkedIn</span>
+        <External />
       </a>
       <a className="link-i" href={site.github} target="_blank" rel="me noopener">
         <GitHub />
         <span className="ul">GitHub</span>
+        <External />
       </a>
     </div>
   );

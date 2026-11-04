@@ -1,3 +1,4 @@
+import { ArrowUp, External } from './Icons';
 import LocalTime from './LocalTime';
 import Links from './Links';
 import { site } from '@/lib/site';
@@ -12,10 +13,15 @@ export default function Footer({ links = true }: { links?: boolean }) {
       ) : null}
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
         <LocalTime />
-        <span>
-          Updated {site.updated}.{' '}
-          <a className="ul" href={site.repo} target="_blank" rel="noopener">
-            Source on GitHub
+        <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span>Updated {site.updated}</span>
+          <a className="link-i no-print" href={site.repo} target="_blank" rel="noopener">
+            <span className="ul">Source</span>
+            <External />
+          </a>
+          <a className="link-i totop no-print" href="#top">
+            <ArrowUp />
+            <span className="ul">Top</span>
           </a>
         </span>
       </div>

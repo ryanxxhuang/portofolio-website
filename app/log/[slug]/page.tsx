@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Footer from '@/components/Footer';
-import { renderMDX } from '@/components/mdx';
+import { readingTime, renderMDX } from '@/components/mdx';
+import Progress from '@/components/Progress';
 import { getLog, getSource, getWork } from '@/lib/content';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -25,16 +26,19 @@ export default async function LogEntry({ params }: Props) {
   const e = getLog().find((x) => x.slug === slug);
   if (!e) notFound();
   const project = e.project ? getWork().find((w) => w.slug === e.project) : undefined;
-  const body = await renderMDX(getSource('log', slug).content);
+  const src = getSource('log', slug).content;
+  const body = await renderMDX(src);
+  const mins = readingTime(src);
 
   return (
     <article>
+      <Progress />
       <Link href="/" className="muted ul text-[14px] no-underline">
         Ryan Huang
       </Link>
       <h1 className="mt-10 mb-0 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{e.title}</h1>
       <p className="muted mt-3 mb-0 text-[14.5px]">
-        {e.displayDate}
+        {e.displayDate}, {mins} min read
         {project ? (
           <>
             {', '}

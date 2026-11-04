@@ -27,3 +27,11 @@ export const Sun = (p: P) => (
 export const Moon = (p: P) => (
   <svg {...base} className={p.className}><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" /></svg>
 );
+export const External = (p: P) => (
+  <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden className={`ext ${p.className ?? ''}`}>
+    <path d="M8 16 16 8M9 8h7v7" />
+  </svg>
+);
+export const ArrowUp = (p: P) => (
+  <svg {...base} className={p.className}><path d="M12 19V5m0 0-6 6m6-6 6 6" /></svg>
+);

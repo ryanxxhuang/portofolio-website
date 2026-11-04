@@ -31,7 +31,7 @@ Node is pinned in `.nvmrc` (22).
 | Contact details, experience, education, highlights | `lib/site.ts` |
 | Resume PDF | `public/resume/Ryan_Huang_Resume.pdf` (also copied to `/resume.pdf` for old links) |
 
-The design is deliberately minimal: one column, one typeface, no decoration. The small details: an availability dot, copy-to-clipboard email, organization monograms with tenure, highlights that link to their case studies, a "Watch it drive" chip on the photo, and Los Angeles local time with a sun or moon in the footer.
+The design is deliberately minimal: one column, one typeface, no decoration. The small details: the Chinese name on hover, an availability dot, copy-to-clipboard email, organization monograms with tenure, highlights that link to their case studies, a "Watch it drive" chip on the photo, Los Angeles local time with a sun or moon in the footer, section counts, external-link arrows, a reading-progress line and "#" heading links on long pages, reading time, a back-to-top link, and a print stylesheet that turns the home page into a clean one-column resume.
 
 MDX files can use `<Figure caption="...">`, `<TrackMap />` (the real F1TENTH map and raceline from `data/track.json`), `<TrackLegend />`, and `<Videos><Video id="YOUTUBE_ID" title="..." /></Videos>`. Pass props as strings; JavaScript expressions are blocked.
 

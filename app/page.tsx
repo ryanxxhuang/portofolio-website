@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import { Play } from '@/components/Icons';
+import { External, Play } from '@/components/Icons';
+import Name from '@/components/Name';
 import Links, { ResumeButton } from '@/components/Links';
 import Rows from '@/components/Rows';
 import { getLog } from '@/lib/content';
@@ -13,7 +14,7 @@ export default function Home() {
   return (
     <>
       <header className="rise" style={i(0)}>
-        <h1 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">Ryan Huang</h1>
+        <Name />
         <p className="muted m-0">Robotics product and program manager</p>
       </header>
 
@@ -33,7 +34,9 @@ export default function Home() {
       </section>
 
       <section className="rise" style={i(2)}>
-        <h2 className="label">Highlights</h2>
+        <h2 className="label">
+          Highlights <span className="count">{highlights.length}</span>
+        </h2>
         <ul className="hl">
           {highlights.map((h) => (
             <li key={h.text}>
@@ -63,27 +66,39 @@ export default function Home() {
           rel="noopener"
         >
           <Play /> Watch it drive
+          <External />
         </a>
-        <figcaption className="muted mt-2 text-[13px]">The F1TENTH car I built on my own, LiDAR up front.</figcaption>
+        <figcaption className="mt-2 flex flex-wrap justify-between gap-x-4 gap-y-0.5 text-[13px]">
+          <span className="muted">The F1TENTH car I built on my own, LiDAR up front.</span>
+          <span className="faint">Jetson Orin Nano, RPLIDAR A2M12, VESC 6, ROS 2</span>
+        </figcaption>
       </figure>
 
       <section className="rise" style={i(4)}>
-        <h2 className="label">Experience</h2>
+        <h2 className="label">
+          Experience <span className="count">{experience.length}</span>
+        </h2>
         <Rows items={experience} />
       </section>
 
       <section className="rise" style={i(5)}>
-        <h2 className="label">Projects</h2>
+        <h2 className="label">
+          Projects <span className="count">{projects.length}</span>
+        </h2>
         <Rows items={projects} />
       </section>
 
       <section className="rise" style={i(6)}>
-        <h2 className="label">Education</h2>
+        <h2 className="label">
+          Education <span className="count">{education.length}</span>
+        </h2>
         <Rows items={education} />
       </section>
 
       <section className="rise" style={i(7)}>
-        <h2 className="label">Writing</h2>
+        <h2 className="label">
+          Writing <span className="count">{log.length}</span>
+        </h2>
         <ul className="rows">
           {log.map((e) => (
             <li key={e.slug}>

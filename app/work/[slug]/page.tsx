@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Footer from '@/components/Footer';
-import { renderMDX } from '@/components/mdx';
+import { readingTime, renderMDX } from '@/components/mdx';
+import Progress from '@/components/Progress';
 import { getSource, getWork } from '@/lib/content';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -27,12 +28,15 @@ export default async function CaseStudy({ params }: Props) {
   if (i < 0) notFound();
   const w = all[i];
   const next = all[(i + 1) % all.length];
-  const body = await renderMDX(getSource('work', slug).content);
+  const src = getSource('work', slug).content;
+  const body = await renderMDX(src);
+  const mins = readingTime(src);
 
   const meta: [string, React.ReactNode][] = [
     ['Role', w.org ? `${w.role}, ${w.org}` : w.role],
     ['Period', w.period],
   ];
+  meta.push(['Reading', `${mins} min`]);
   if (w.stack?.length) meta.push(['Stack', w.stack.join(', ')]);
   if (w.links?.length)
     meta.push([
@@ -48,6 +52,7 @@ export default async function CaseStudy({ params }: Props) {
 
   return (
     <article>
+      <Progress />
       <Link href="/" className="muted ul text-[14px] no-underline">
         Ryan Huang
       </Link>

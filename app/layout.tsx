@@ -31,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <main className="page">{children}</main>
+        <main id="top" className="page">
+          {children}
+        </main>
       </body>
     </html>
   );
