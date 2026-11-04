@@ -97,6 +97,12 @@
   .row { position: relative; }
   .row:hover { background: var(--hover); }
   .row-static:hover { background: none; }
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 1fr; gap: 2px; }
+    .row > .num { text-align: left; padding-left: 44px; display: flex; gap: 10px; align-items: baseline; }
+    .row > .num > * { display: inline-flex; }
+    .rows .row:not(:has(.mark)) > .num { padding-left: 0; }
+  }
   .rows li:has(.row-static):hover .row::before, .rows li:has(.row-static):hover + li .row::before { opacity: 1; }
 
   .btn {
@@ -114,6 +120,69 @@
   .btn:hover { background: var(--hover); border-color: var(--ink-3); }
   .btn-primary { background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .btn-primary:hover { background: var(--ink); opacity: 0.86; border-color: var(--ink); }
+  .btn { gap: 8px; }
+  .btn-meta { font-weight: 400; opacity: 0.6; font-size: 13px; padding-left: 2px; }
+
+  /* Icon + text links */
+  .link-i { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+  .link-i svg { color: var(--ink-2); transition: color 150ms ease; }
+  .link-i:hover svg { color: var(--ink); }
+
+  /* Availability line with a softly breathing dot */
+  .status { display: inline-flex; align-items: flex-start; gap: 9px; font-size: 15px; color: var(--ink-2); }
+  .status i { margin-top: 0.62em; flex: none; }
+  .status i, .now i {
+    position: relative; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+  }
+  .status i::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%; background: #22c55e;
+    animation: breathe 2.4s ease-out infinite;
+  }
+  @keyframes breathe { 0% { transform: scale(1); opacity: .55; } 80%, 100% { transform: scale(2.6); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .status i::after { animation: none; } }
+
+  .now { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-2); }
+  .now i { width: 6px; height: 6px; }
+
+  /* Monogram badges for organizations */
+  .mark {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 2px;
+    border-radius: 7px;
+    border: 1px solid var(--line);
+    background: var(--hover);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ink-2);
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+  .row:hover .mark { background: var(--bg); color: var(--ink); border-color: var(--ink-3); }
+
+  /* Highlights: each line links to the case study behind it */
+  .hl { list-style: none; margin: 0; padding: 0; }
+  .hl li { position: relative; padding-left: 18px; }
+  .hl li + li { margin-top: 8px; }
+  .hl li::before { content: ""; position: absolute; left: 2px; top: 0.72em; width: 6px; height: 1.5px; background: var(--ink-3); transition: width 150ms ease, background-color 150ms ease; }
+  .hl li:hover::before { width: 10px; background: var(--ink); }
+  .hl a { text-decoration: none; }
+  .hl a:hover { text-decoration: underline; text-decoration-color: var(--ink-3); text-underline-offset: 3px; }
+
+  /* Small overlay chip on the photo */
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 11px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92); color: #111;
+    font-size: 13px; font-weight: 500; text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(6px);
+    transition: transform 150ms ease, background-color 150ms ease;
+  }
+  .chip:hover { transform: translateY(-1px); background: #fff; }
   /* Hairline between rows, aligned to the text column; hidden next to a hovered row. */
   .rows li + li .row::before {
     content: "";

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import Links, { ResumeButtons } from '@/components/Links';
+import { Play } from '@/components/Icons';
+import Links, { ResumeButton } from '@/components/Links';
 import Rows from '@/components/Rows';
 import { getLog } from '@/lib/content';
 import { education, experience, highlights, projects } from '@/lib/site';
@@ -21,27 +22,28 @@ export default function Home() {
           UCLA Anderson MBA, class of 2027, starting Georgia Tech&apos;s MS in Computer Science (robotics) in spring
           2027. Five years of product and program management, now focused on robotics.
         </p>
-        <p className="muted text-[15px]">Open to full-time robotics PM and TPM roles from June 2027.</p>
-        <div className="pt-2">
-          <ResumeButtons />
-        </div>
-        <div className="pt-1">
-          <Links resumes={false} />
+        <p className="status">
+          <i aria-hidden />
+          Open to full-time robotics PM and TPM roles from June 2027
+        </p>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+          <ResumeButton />
+          <Links resume={false} />
         </div>
       </section>
 
       <section className="rise" style={i(2)}>
         <h2 className="label">Highlights</h2>
-        <ul className="m-0 space-y-2 pl-5" style={{ listStyle: 'disc' }}>
+        <ul className="hl">
           {highlights.map((h) => (
-            <li key={h} className="marker:text-ink-3">
-              {h}
+            <li key={h.text}>
+              <Link href={h.href}>{h.text}</Link>
             </li>
           ))}
         </ul>
       </section>
 
-      <figure className="rise m-0 mt-10" style={i(3)}>
+      <figure className="rise relative m-0 mt-10" style={i(3)}>
         <Link href="/work/f1tenth/" className="group block overflow-hidden rounded-lg">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -54,6 +56,14 @@ export default function Home() {
             className="block h-[300px] w-full object-cover object-[center_62%] transition duration-500 group-hover:scale-[1.015] max-sm:h-[240px]"
           />
         </Link>
+        <a
+          className="chip absolute bottom-[38px] left-3"
+          href="https://www.youtube.com/watch?v=QS4dnrDDZss"
+          target="_blank"
+          rel="noopener"
+        >
+          <Play /> Watch it drive
+        </a>
         <figcaption className="muted mt-2 text-[13px]">The F1TENTH car I built on my own, LiDAR up front.</figcaption>
       </figure>
 

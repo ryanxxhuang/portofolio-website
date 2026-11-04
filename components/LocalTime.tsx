@@ -1,17 +1,25 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Moon, Sun } from './Icons';
 
 const fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit' });
+const hourFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', hour: 'numeric', hourCycle: 'h23' });
 
-/** Ryan's local time, so a recruiter knows whether he's awake. */
+/** Ryan's local time with a sun or moon, so a recruiter knows whether he's awake. */
 export default function LocalTime() {
-  const [t, setT] = useState<string | null>(null);
+  const [now, setNow] = useState<Date | null>(null);
   useEffect(() => {
-    const tick = () => setT(fmt.format(new Date()));
-    tick();
-    const id = setInterval(tick, 30_000);
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 30_000);
     return () => clearInterval(id);
   }, []);
-  return <span className="num">Los Angeles{t ? `, ${t}` : ''}</span>;
+  const h = now ? Number(hourFmt.format(now)) : 12;
+  const day = h >= 7 && h < 19;
+  return (
+    <span className="num inline-flex items-center gap-1.5">
+      {now ? day ? <Sun /> : <Moon /> : null}
+      Los Angeles{now ? `, ${fmt.format(now)}` : ''}
+    </span>
+  );
 }

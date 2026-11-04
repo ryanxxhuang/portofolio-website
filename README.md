@@ -28,10 +28,10 @@ Node is pinned in `.nvmrc` (22).
 |---|---|
 | Case studies | `content/work/*.mdx` (frontmatter: title, summary, role, org, period, year, order, stack, links) |
 | Build log entries | `content/log/*.mdx` (frontmatter: title, summary, date `YYYY-MM`, displayDate, project) |
-| Contact details, resume paths, revision date | `lib/site.ts` |
-| Resume PDFs | `public/resume/` (`/resume.pdf` is kept as the PM version for old links) |
+| Contact details, experience, education, highlights | `lib/site.ts` |
+| Resume PDF | `public/resume/Ryan_Huang_Resume.pdf` (also copied to `/resume.pdf` for old links) |
 
-The design is deliberately minimal: one column, one typeface, no decoration. The small details are the copy-to-clipboard email link, Ryan's local time in the footer, and the row hover states.
+The design is deliberately minimal: one column, one typeface, no decoration. The small details: an availability dot, copy-to-clipboard email, organization monograms with tenure, highlights that link to their case studies, a "Watch it drive" chip on the photo, and Los Angeles local time with a sun or moon in the footer.
 
 MDX files can use `<Figure caption="...">`, `<TrackMap />` (the real F1TENTH map and raceline from `data/track.json`), `<TrackLegend />`, and `<Videos><Video id="YOUTUBE_ID" title="..." /></Videos>`. Pass props as strings; JavaScript expressions are blocked.
 
