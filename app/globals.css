@@ -96,6 +96,24 @@
   }
   .row { position: relative; }
   .row:hover { background: var(--hover); }
+  .row-static:hover { background: none; }
+  .rows li:has(.row-static):hover .row::before, .rows li:has(.row-static):hover + li .row::before { opacity: 1; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+  .btn:hover { background: var(--hover); border-color: var(--ink-3); }
+  .btn-primary { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .btn-primary:hover { background: var(--ink); opacity: 0.86; border-color: var(--ink); }
   /* Hairline between rows, aligned to the text column; hidden next to a hovered row. */
   .rows li + li .row::before {
     content: "";

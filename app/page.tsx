@@ -1,36 +1,47 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import Links from '@/components/Links';
-import WorkList from '@/components/WorkList';
-import { getLog, getWork } from '@/lib/content';
+import Links, { ResumeButtons } from '@/components/Links';
+import Rows from '@/components/Rows';
+import { getLog } from '@/lib/content';
+import { education, experience, highlights, projects } from '@/lib/site';
 
 export default function Home() {
-  const work = getWork();
   const log = getLog();
+  const i = (n: number) => ({ ['--i' as string]: n });
 
   return (
     <>
-      <header className="rise" style={{ ['--i' as string]: 0 }}>
+      <header className="rise" style={i(0)}>
         <h1 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">Ryan Huang</h1>
         <p className="muted m-0">Robotics product and program manager</p>
       </header>
 
-      <section className="rise mt-7 space-y-4" style={{ ['--i' as string]: 1 }}>
+      <section className="rise mt-7 space-y-4" style={i(1)}>
         <p>
-          I&apos;m finishing my MBA at UCLA Anderson and looking for full-time robotics PM and TPM roles from summer
-          2027.
+          UCLA Anderson MBA, class of 2027, starting Georgia Tech&apos;s MS in Computer Science (robotics) in spring
+          2027. Five years of product and program management, now focused on robotics.
         </p>
-        <p>
-          I solo-built an autonomous race car, from the parts list to model predictive control, and spent five years
-          running public infrastructure programs as large as $3.3B. Before business school, I was a product manager on
-          an AI support platform.
-        </p>
+        <p className="muted text-[15px]">Open to full-time robotics PM and TPM roles from June 2027.</p>
         <div className="pt-2">
-          <Links />
+          <ResumeButtons />
+        </div>
+        <div className="pt-1">
+          <Links resumes={false} />
         </div>
       </section>
 
-      <figure className="rise m-0 mt-12" style={{ ['--i' as string]: 2 }}>
+      <section className="rise" style={i(2)}>
+        <h2 className="label">Highlights</h2>
+        <ul className="m-0 space-y-2 pl-5" style={{ listStyle: 'disc' }}>
+          {highlights.map((h) => (
+            <li key={h} className="marker:text-ink-3">
+              {h}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <figure className="rise m-0 mt-10" style={i(3)}>
         <Link href="/work/f1tenth/" className="group block overflow-hidden rounded-lg">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -40,18 +51,28 @@ export default function Home() {
             alt="The F1TENTH car Ryan built, with a LiDAR sensor on the front and a Jetson computer behind it"
             width={1200}
             height={1600}
-            className="block h-[340px] w-full object-cover object-[center_62%] transition duration-500 group-hover:scale-[1.015] max-sm:h-[260px]"
+            className="block h-[300px] w-full object-cover object-[center_62%] transition duration-500 group-hover:scale-[1.015] max-sm:h-[240px]"
           />
         </Link>
-        <figcaption className="muted mt-2 text-[13px]">The F1TENTH car I built, LiDAR up front.</figcaption>
+        <figcaption className="muted mt-2 text-[13px]">The F1TENTH car I built on my own, LiDAR up front.</figcaption>
       </figure>
 
-      <section className="rise" style={{ ['--i' as string]: 3 }}>
-        <h2 className="label">Work</h2>
-        <WorkList items={work} />
+      <section className="rise" style={i(4)}>
+        <h2 className="label">Experience</h2>
+        <Rows items={experience} />
       </section>
 
-      <section className="rise" style={{ ['--i' as string]: 4 }}>
+      <section className="rise" style={i(5)}>
+        <h2 className="label">Projects</h2>
+        <Rows items={projects} />
+      </section>
+
+      <section className="rise" style={i(6)}>
+        <h2 className="label">Education</h2>
+        <Rows items={education} />
+      </section>
+
+      <section className="rise" style={i(7)}>
         <h2 className="label">Writing</h2>
         <ul className="rows">
           {log.map((e) => (
