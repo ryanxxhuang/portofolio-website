@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-import '@fontsource-variable/archivo/standard.css';
-import '@fontsource-variable/martian-mono/standard.css';
+import '@fontsource-variable/geist/index.css';
 import './globals.css';
-import SiteHeader from '@/components/SiteHeader';
-import TitleBlock from '@/components/TitleBlock';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -25,8 +22,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f3f5f6' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f2a4d' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#101010' },
   ],
 };
 
@@ -34,12 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main id="main">{children}</main>
-        <TitleBlock />
+        <main className="page">{children}</main>
       </body>
     </html>
   );

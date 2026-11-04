@@ -1,12 +1,10 @@
 import type { ReactNode } from 'react';
 
-export default function Figure({ n, caption, children, wide }: { n: string; caption: string; children: ReactNode; wide?: string }) {
+export default function Figure({ caption, children }: { n?: string; caption: string; children: ReactNode }) {
   return (
-    <figure className={`not-prose my-10 ${wide ? 'wide' : ''}`}>
-      <div className="figure-frame p-4 sm:p-6">{children}</div>
-      <figcaption className="t-note mt-3 max-w-[72ch]">
-        Fig. {n}. {caption}
-      </figcaption>
+    <figure className="!my-8">
+      <div>{children}</div>
+      <figcaption className="muted mt-2 text-[13px]">{caption}</figcaption>
     </figure>
   );
 }

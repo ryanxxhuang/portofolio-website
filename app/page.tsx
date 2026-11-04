@@ -1,97 +1,71 @@
 import Link from 'next/link';
-import HeroFigure from '@/components/HeroFigure';
-import TrackMap from '@/components/TrackMap';
+import Footer from '@/components/Footer';
+import Links from '@/components/Links';
 import WorkList from '@/components/WorkList';
 import { getLog, getWork } from '@/lib/content';
-import { site } from '@/lib/site';
 
 export default function Home() {
   const work = getWork();
-  const log = getLog().slice(0, 3);
+  const log = getLog();
 
   return (
     <>
-      <section className="sheet grid items-center gap-x-12 gap-y-10 pt-14 pb-20 lg:grid-cols-12 lg:pt-20">
-        <div className="lg:col-span-5">
-          <h1 className="t-display max-w-[13ch]">I build the robots I ship specs for.</h1>
-          <p className="t-lead mt-6 max-w-[46ch]">
-            I&apos;m Ryan Huang, a robotics product and program manager finishing my MBA at UCLA Anderson. I
-            solo-built an autonomous race car from the parts list up, and spent five years running public
-            infrastructure programs as large as $3.3B.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a className="btn btn-primary" href={site.resumes.pm} download>
-              Download PM resume
-            </a>
-            <a className="btn btn-secondary" href={site.resumes.tpm} download>
-              Download TPM resume
-            </a>
-          </div>
-        </div>
+      <header className="rise" style={{ ['--i' as string]: 0 }}>
+        <h1 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">Ryan Huang</h1>
+        <p className="muted m-0">Robotics product and program manager</p>
+      </header>
 
-        <figure className="m-0 lg:col-span-7">
-          <div className="figure-frame">
-            <HeroFigure fallback={<TrackMap className="h-full w-full" />} />
-          </div>
-          <figcaption className="t-note mt-3 max-w-[70ch]">
-            Fig. 1. The room my F1TENTH car mapped with its own LiDAR, rebuilt in 3D. The highlighted loop is the
-            minimum-curvature raceline it drives, and the rays are a scan simulated against the real map. On a
-            desktop, drag to rotate.
-          </figcaption>
-        </figure>
+      <section className="rise mt-7 space-y-4" style={{ ['--i' as string]: 1 }}>
+        <p>
+          I&apos;m finishing my MBA at UCLA Anderson and looking for full-time robotics PM and TPM roles from summer
+          2027.
+        </p>
+        <p>
+          I solo-built an autonomous race car, from the parts list to model predictive control, and spent five years
+          running public infrastructure programs as large as $3.3B. Before business school, I was a product manager on
+          an AI support platform.
+        </p>
+        <div className="pt-2">
+          <Links />
+        </div>
       </section>
 
-      <section className="sheet pb-20" aria-labelledby="work-h">
-        <div className="rule-top flex items-baseline justify-between gap-6 pt-6">
-          <h2 id="work-h" className="t-h2">
-            Work
-          </h2>
-          <Link href="/work/" className="link t-small">
-            All case studies
-          </Link>
-        </div>
+      <figure className="rise m-0 mt-12" style={{ ['--i' as string]: 2 }}>
+        <Link href="/work/f1tenth/" className="group block overflow-hidden rounded-lg">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/f1tenth-hero.jpg"
+            srcSet="/f1tenth-hero-sm.jpg 600w, /f1tenth-hero.jpg 1200w"
+            sizes="(max-width: 640px) 100vw, 620px"
+            alt="The F1TENTH car Ryan built, with a LiDAR sensor on the front and a Jetson computer behind it"
+            width={1200}
+            height={1600}
+            className="block h-[340px] w-full object-cover object-[center_62%] transition duration-500 group-hover:scale-[1.015] max-sm:h-[260px]"
+          />
+        </Link>
+        <figcaption className="muted mt-2 text-[13px]">The F1TENTH car I built, LiDAR up front.</figcaption>
+      </figure>
+
+      <section className="rise" style={{ ['--i' as string]: 3 }}>
+        <h2 className="label">Work</h2>
         <WorkList items={work} />
       </section>
 
-      <section className="sheet grid gap-x-12 gap-y-14 pb-6 lg:grid-cols-12">
-        <div className="lg:col-span-5" aria-labelledby="now-h">
-          <div className="rule-top pt-6">
-            <h2 id="now-h" className="t-h2">
-              Now
-            </h2>
-            <ul className="mt-6 space-y-4 p-0" style={{ listStyle: 'none' }}>
-              <li>Graduate student researcher in Prof. Yuchen Cui&apos;s Robot Intelligence Lab at UCLA.</li>
-              <li>Leading a 5-person UCLA Anderson capstone with Avride on autonomous delivery robots.</li>
-              <li>Starting Georgia Tech&apos;s MS in Computer Science, robotics specialization, in spring 2027.</li>
-              <li>Looking for full-time robotics product and program roles from summer 2027.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="lg:col-span-7" aria-labelledby="log-h">
-          <div className="rule-top flex items-baseline justify-between gap-6 pt-6">
-            <h2 id="log-h" className="t-h2">
-              Build log
-            </h2>
-            <Link href="/log/" className="link t-small">
-              All entries
-            </Link>
-          </div>
-          <ul className="mt-4 p-0" style={{ listStyle: 'none' }}>
-            {log.map((e) => (
-              <li key={e.slug} className="rule-bottom py-4">
-                <Link href={`/log/${e.slug}/`} className="group block no-underline">
-                  <span className="t-note">{e.displayDate}</span>
-                  <span className="t-h3 mt-1 block group-hover:underline group-hover:decoration-accent group-hover:underline-offset-4">
-                    {e.title}
-                  </span>
-                  <span className="t-small t-muted mt-1 block">{e.summary}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <section className="rise" style={{ ['--i' as string]: 4 }}>
+        <h2 className="label">Writing</h2>
+        <ul className="rows">
+          {log.map((e) => (
+            <li key={e.slug}>
+              <Link href={`/log/${e.slug}/`} className="row">
+                <span className="font-medium">{e.title}</span>
+                <span className="muted num text-[14px]">{e.date.slice(0, 4)}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
+
+      <Footer links={false} />
     </>
   );
 }

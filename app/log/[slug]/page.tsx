@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Footer from '@/components/Footer';
 import { renderMDX } from '@/components/mdx';
 import { getLog, getSource, getWork } from '@/lib/content';
 
@@ -27,24 +28,27 @@ export default async function LogEntry({ params }: Props) {
   const body = await renderMDX(getSource('log', slug).content);
 
   return (
-    <article className="sheet pt-10">
-      <Link href="/log/" className="link t-small">
-        All build log entries
+    <article>
+      <Link href="/" className="muted ul text-[14px] no-underline">
+        Ryan Huang
       </Link>
-      <p className="t-note mt-6">
+      <h1 className="mt-10 mb-0 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{e.title}</h1>
+      <p className="muted mt-3 mb-0 text-[14.5px]">
         {e.displayDate}
         {project ? (
           <>
             {', '}
-            <Link className="link" href={`/work/${project.slug}/`}>
+            <Link className="ul" href={`/work/${project.slug}/`}>
               {project.title}
             </Link>
           </>
         ) : null}
       </p>
-      <h1 className="t-h1 mt-2 max-w-[22ch]">{e.title}</h1>
-      <p className="t-lead mt-4 max-w-[58ch]">{e.summary}</p>
-      <div className="prose-sheet mt-2">{body}</div>
+      <div className="prose mt-6">
+        <p className="muted">{e.summary}</p>
+        {body}
+      </div>
+      <Footer />
     </article>
   );
 }

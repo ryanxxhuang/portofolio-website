@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Footer from '@/components/Footer';
 import { renderMDX } from '@/components/mdx';
 import { getSource, getWork } from '@/lib/content';
 
@@ -28,50 +29,49 @@ export default async function CaseStudy({ params }: Props) {
   const next = all[(i + 1) % all.length];
   const body = await renderMDX(getSource('work', slug).content);
 
-  const specs: { k: string; v: React.ReactNode }[] = [
-    { k: 'Role', v: w.org ? `${w.role}, ${w.org}` : w.role },
-    { k: 'Period', v: w.period },
+  const meta: [string, React.ReactNode][] = [
+    ['Role', w.org ? `${w.role}, ${w.org}` : w.role],
+    ['Period', w.period],
   ];
-  if (w.stack?.length) specs.push({ k: 'Stack', v: w.stack.join(', ') });
+  if (w.stack?.length) meta.push(['Stack', w.stack.join(', ')]);
   if (w.links?.length)
-    specs.push({
-      k: 'Links',
-      v: (
-        <span className="flex flex-wrap gap-x-4">
-          {w.links.map((l) => (
-            <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener">
-              {l.label}
-            </a>
-          ))}
-        </span>
-      ),
-    });
+    meta.push([
+      'Links',
+      <span key="l" className="flex flex-wrap gap-x-4">
+        {w.links.map((l) => (
+          <a key={l.href} href={l.href} className="ul" target="_blank" rel="noopener">
+            {l.label}
+          </a>
+        ))}
+      </span>,
+    ]);
 
   return (
-    <article className="sheet pt-10">
-      <Link href="/work/" className="link t-small">
-        All work
+    <article>
+      <Link href="/" className="muted ul text-[14px] no-underline">
+        Ryan Huang
       </Link>
-      <h1 className="t-h1 mt-6 max-w-[20ch]">{w.title}</h1>
-      <p className="t-lead mt-4 max-w-[58ch]">{w.summary}</p>
+      <h1 className="mt-10 mb-0 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{w.title}</h1>
+      <p className="muted mt-3 mb-0">{w.summary}</p>
 
-      <dl className="mt-8 grid max-w-[68ch] border border-ink sm:grid-cols-[7.5rem_1fr]">
-        {specs.map((s, n) => (
-          <div key={s.k} className={`contents`}>
-            <dt className={`t-note px-4 pt-3 sm:py-3 ${n ? 'sm:border-t border-rule' : ''}`}>{s.k}</dt>
-            <dd className={`m-0 px-4 pb-3 sm:py-3 ${n ? 'sm:border-t border-rule' : ''}`}>{s.v}</dd>
+      <dl className="mt-8 mb-0 grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-1.5 text-[14.5px]">
+        {meta.map(([k, v]) => (
+          <div key={k} className="contents">
+            <dt className="muted">{k}</dt>
+            <dd className="m-0">{v}</dd>
           </div>
         ))}
       </dl>
 
-      <div className="prose-sheet mt-4">{body}</div>
+      <div className="prose mt-2">{body}</div>
 
-      <nav className="rule-top mt-20 max-w-[68ch] pt-6" aria-label="Next case study">
-        <span className="t-note">Next case study</span>
-        <Link href={`/work/${next.slug}/`} className="t-h3 mt-1 block hover:underline hover:decoration-accent hover:underline-offset-4">
+      <nav className="mt-16" aria-label="Next case study">
+        <span className="muted text-[13px]">Next</span>
+        <Link href={`/work/${next.slug}/`} className="ul mt-1 block w-fit font-medium">
           {next.title}
         </Link>
       </nav>
+      <Footer />
     </article>
   );
 }

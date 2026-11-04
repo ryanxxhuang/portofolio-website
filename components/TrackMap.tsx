@@ -66,18 +66,18 @@ export default function TrackMap({ className }: { className?: string }) {
 
 export function TrackLegend() {
   return (
-    <ul className="t-note flex flex-wrap gap-x-6 gap-y-1">
+    <ul className="muted mt-3 flex flex-wrap gap-x-5 gap-y-1 p-0 text-[13px]" style={{ listStyle: 'none' }}>
       <li className="flex items-center gap-2">
-        <span aria-hidden className="inline-block h-2.5 w-2.5 bg-ink opacity-80" />
-        Walls, from the car&apos;s SLAM map
+        <span aria-hidden className="inline-block h-2.5 w-2.5 bg-ink-3" />
+        Walls from the SLAM map
       </li>
       <li className="flex items-center gap-2">
         <span aria-hidden className="inline-block w-5 border-t border-dashed border-ink-2" />
-        Path I drove by hand (250 points)
+        Path I drove by hand
       </li>
       <li className="flex items-center gap-2">
-        <span aria-hidden className="inline-block w-5 border-t-2 border-accent" />
-        Minimum-curvature raceline (75 points)
+        <span aria-hidden className="inline-block w-5 border-t-2 border-ink" />
+        Optimized raceline
       </li>
     </ul>
   );
