@@ -1,11 +1,16 @@
 ---
 title: Robot manipulation research
-summary: In Prof. Yuchen Cui's Robot Intelligence Lab, I proposed two questions about how robots learn manipulation from human demonstrations and from simulation.
+summary: In Prof. Yuchen Cui's Robot Intelligence Lab, I measure how much positioning error a learned manipulation policy can take before it fails.
 role: Graduate student researcher
 org: UCLA Robot Intelligence Lab
 period: Oct 2026 – present
 year: "2026"
 order: 3
+stats:
+  - value: "6 mm"
+    label: "smallest gripper error that broke a policy with 50/50 baseline success"
+  - value: "145/145"
+    label: "failures replay exactly"
 links:
   - label: The lab
     href: https://uril.cs.ucla.edu/
@@ -15,16 +20,24 @@ links:
 
 Prof. Yuchen Cui's lab at UCLA builds robots that assist people in everyday environments. Its work covers better robot training data, more dependable foundation models, and autonomy designed to work alongside people.
 
-## The two questions I proposed
+## The question
 
-### Do learned policies keep the safety margins people demonstrate?
+Take a trained policy and make the gripper go a few millimetres away from where the policy tells it to go. How many millimetres can that error be before the task fails? I call that number the safety margin. It matters for any learned robot working near people or fragile objects, where real controllers are always off by a little.
 
-When people demonstrate a manipulation task, they usually keep some distance from collisions. The question is whether a policy trained on those demonstrations inherits that margin, shrinks it or loses it. That matters for any learned robot working near people or fragile objects, and it says something about what good training data looks like.
+## What I built
 
-### How much do physics simulators disagree, and does it matter?
+- A Diffusion Policy for a simulated lifting task, trained myself. With no error added it succeeds in 50 of 50 start states.
+- A deterministic evaluation pipeline in MuJoCo. Every run can be saved, restored and replayed exactly, so each reported failure is one I can reproduce.
+- A search that finds the smallest failing error for each start state.
 
-Different physics solvers can simulate the same contact-rich scene differently. The question is how large that disagreement is for manipulation tasks, and how it affects policies that are trained in simulation and then moved to real robots.
+## Pilot result
+
+This is a small pilot on one task and five start states, not a finished study.
+
+- Each start state has a sharp threshold. The policy goes from success to failure at 6, 15, 13, 18 and 15 mm.
+- Random errors miss it. An error that changed direction at random on every step never caused a failure, even at 80 mm.
+- All 145 failures replay exactly.
 
 ## Status
 
-Both questions are at the proposal stage.
+The pilot used the simplest kind of error, the same offset for the whole run. Errors that change over time are the next step.
